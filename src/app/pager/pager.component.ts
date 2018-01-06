@@ -1,25 +1,20 @@
-import {Component, OnInit} from "@angular/core";
+import { Component } from '@angular/core';
+
+import { GoogleBooksService } from '../shared/google-books.service';
 
 @Component({
   selector: 'app-pager',
   templateUrl: './pager.component.html',
   styleUrls: ['./pager.component.css']
 })
-export class PagerComponent implements OnInit {
-
-  constructor() {
-  }
+export class PagerComponent {
+  constructor(public service: GoogleBooksService) {}
 
   next() {
-    //TODO
+    this.service.page++;
   }
 
   prev() {
-    //TODO
+    this.service.page--;
   }
-
-
-  ngOnInit() {
-  }
-
 }

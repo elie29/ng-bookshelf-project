@@ -30,6 +30,6 @@
 
   <div class="d-flex justify-content-center">
     <!-- Show pagnation -->
-    <app-pager *ngIf="service.totalPages > 1"></app-pager>
+    <app-pager *ngIf="foundResults() && service.totalPages > 0"></app-pager>
   </div>
 </div>

@@ -1,12 +1,11 @@
 <nav>
   <ul class="pager">
-    <li>
-      <a> &larr; Previous
-      </a>
+    <li [class.disabled]="service.page === 1">
+      <a (click)="prev()" title="Previous"> &larr; Previous</a>
     </li>
-    <li>
-      <a>Next &rarr;
-      </a>
+    <!-- In case totalPages is equal to 0 -->
+    <li [class.disabled]="service.page >= service.totalPages">
+      <a (click)="next()" title="Next">Next &rarr; </a>
     </li>
   </ul>
 </nav>

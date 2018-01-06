@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators/map';
+import { tap } from 'rxjs/operators/tap';
 
 import { Book } from './book';
 
@@ -22,12 +23,7 @@ export class GoogleBooksService {
   }
 
   get totalPages() {
-    try {
-      return Math.ceil(this.totalItems / this.pageSize);
-    } catch (e) {
-      console.error(e);
-      return 0;
-    }
+    return Math.ceil(this.totalItems / this.pageSize);
   }
 
   get page(): number {
@@ -43,17 +39,20 @@ export class GoogleBooksService {
 
   searchBooks(queryTitle: string) {
     this.query = queryTitle;
-    this.loading = true;
-    this.initialised = true;
     this.books = [];
-    this.callApi();
+    this.initialised = false;
+    if (this.query) {
+      this.loading = true;
+      this.initialised = true;
+      this.callApi();
+    }
   }
 
   retrieveBook(bookId: string) {
     return this.http.get(`${this.API_PATH}/${bookId}`);
   }
 
-  private bookFactory(item: any): Book {
+  public bookFactory(item: any): Book {
     return new Book(
       item.id,
       item.volumeInfo.title,
