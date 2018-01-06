@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { GoogleBooksService } from '../shared/google-books.service';
-import { Book } from '../shared/book';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './search.component.html',
@@ -12,14 +12,40 @@ export class SearchComponent implements OnInit {
   form: FormGroup;
   search: FormControl;
 
-  constructor(public service: GoogleBooksService) {}
+  constructor(
+    public service: GoogleBooksService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  doSearch() {
-    const value = this.search.value;
-    console.log('doSearch:: ', value);
-    if (value) {
-      this.service.searchBooks(value);
+  ngOnInit() {
+    this.search = new FormControl('', Validators.required);
+    this.form = new FormGroup({
+      search: this.search
+    });
+    // When we refresh using the searched value
+    this.route.params.subscribe(params => {
+      if (params['term']) {
+        this.doSearch(params['term']);
+      }
+    });
+  }
+
+  doSearch(term: string) {
+    this.search.setValue(term);
+    if (term) {
+      this.service.searchBooks(term);
     }
+  }
+
+  onSearch() {
+    const term = this.search.value;
+    let opt = {};
+    if (term) {
+      opt = { term };
+    }
+    // Change the url with an optional term using Matrix URL notation
+    this.router.navigate(['search', opt]);
   }
 
   foundNoResult(): boolean {
@@ -32,16 +58,5 @@ export class SearchComponent implements OnInit {
 
   foundResults(): boolean {
     return !this.service.loading && this.service.books.length > 0;
-  }
-
-  onSearch(term: string) {
-    //TODO
-  }
-
-  ngOnInit() {
-    this.search = new FormControl('', Validators.required);
-    this.form = new FormGroup({
-      search: this.search
-    });
   }
 }

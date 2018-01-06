@@ -1,6 +1,6 @@
 <div>
   <div class="m-3 text-center">
-    <form class="form-inline" [formGroup]="form" (ngSubmit)="doSearch()">
+    <form class="form-inline" [formGroup]="form" (ngSubmit)="onSearch()">
       <div class="form-group">
         <input type="search" class="form-control"
           placeholder="Enter search string" name="search"
@@ -28,6 +28,6 @@
 
   <div class="d-flex justify-content-center">
     <!-- Show pagnation -->
-    <app-pager *ngIf="service.books.length > service.pageSize"></app-pager>
+    <app-pager *ngIf="service.totalPages > 1"></app-pager>
   </div>
 </div>
