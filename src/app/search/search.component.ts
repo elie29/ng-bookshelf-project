@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private onSearch(term: string) {
     this.search.setValue(term);
-    if (term) {
+    if (!term || this.service.query !== term) {
       this.service.searchBooks(term);
     }
   }

@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators/map';
 import { tap } from 'rxjs/operators/tap';
 
 import { Book } from './book';
+import { query } from '@angular/core/src/animation/dsl';
 
 @Injectable()
 export class GoogleBooksService {
@@ -40,8 +41,12 @@ export class GoogleBooksService {
   searchBooks(queryTitle: string) {
     this.query = queryTitle;
     this.books = [];
-    this.initialised = true;
-    this.callApi();
+    if (this.query) {
+      this.initialised = true;
+      this.callApi();
+    } else {
+      this.initialised = false;
+    }
   }
 
   retrieveBook(bookId: string) {

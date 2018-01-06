@@ -1,5 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { Subscription } from 'rxjs/Subscription';
@@ -20,7 +21,7 @@ export class BookComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private location: Location,
     private service: GoogleBooksService,
     private lib: LibraryService
   ) {}
@@ -62,6 +63,6 @@ export class BookComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.router.navigate(['/search']);
+    this.location.back();
   }
 }

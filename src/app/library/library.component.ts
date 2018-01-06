@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { LibraryService } from '../shared/library.service';
@@ -7,5 +8,9 @@ import { LibraryService } from '../shared/library.service';
   styleUrls: ['./library.component.css']
 })
 export class LibraryComponent {
-  constructor(public service: LibraryService) {}
+  constructor(public service: LibraryService, private location: Location) {}
+
+  goBack(): void {
+    this.location.back();
+  }
 }

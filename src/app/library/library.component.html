@@ -6,4 +6,11 @@
 
   <!-- Pass into app-book-list the books from the library service -->
   <app-book-list [books]="service.books" *ngIf="service.books"></app-book-list>
+
+  <button type="button"
+        class="btn btn-default"
+        (click)="goBack()"
+      >
+      Go Back to Search
+  </button>
 </div>
