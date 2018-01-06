@@ -1,19 +1,19 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
-import {AppComponent} from './app.component';
-import {HeaderComponent} from './header/header.component';
-import {BookComponent} from './book/book.component';
-import {BookListComponent} from './book-list/book-list.component';
-import {SearchComponent} from './search/search.component';
-import {LibraryComponent} from './library/library.component';
-import {RouterModule} from "@angular/router";
-import {routes} from "./app.routes";
-import {GoogleBooksService} from "./shared/google-books.service";
-import {PagerComponent} from './pager/pager.component';
-import {LibraryService} from "./shared/library.service";
+import { AppComponent } from './app.component';
+import { routes } from './app.routes';
+import { BookListComponent } from './book-list/book-list.component';
+import { BookComponent } from './book/book.component';
+import { HeaderComponent } from './header/header.component';
+import { LibraryComponent } from './library/library.component';
+import { PagerComponent } from './pager/pager.component';
+import { SearchComponent } from './search/search.component';
+import { GoogleBooksService } from './shared/google-books.service';
+import { LibraryService } from './shared/library.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import {LibraryService} from "./shared/library.service";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -37,5 +37,4 @@ import {LibraryService} from "./shared/library.service";
   providers: [GoogleBooksService, LibraryService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

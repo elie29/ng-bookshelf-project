@@ -1,34 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Book} from "./book";
+import { Injectable } from '@angular/core';
+
+import { Book } from './book';
 
 @Injectable()
 export class LibraryService {
-
-  books: Book[] = [];
+  books: Book[];
 
   constructor() {
     this.load();
-  }
-
-  private save() {
-    localStorage.setItem('books', JSON.stringify(this.books));
-  }
-
-  private load() {
-    let savedBooks = localStorage.getItem('books');
-    if (!savedBooks) {
-      return
-    }
-    // console.log(savedBooks);
-    savedBooks = JSON.parse(savedBooks);
-    // console.log(savedBooks);
-    for (let i = 0; i < savedBooks.length; i++) {
-      let savedBook = savedBooks[i];
-      // console.log(savedBook);
-      //noinspection TypeScriptValidateTypes,TypeScriptUnresolvedFunction
-      this.books.push(Object.assign(new Book(null, null, null, null, null, null, null, null, null, null), savedBook));
-    }
-    // console.log(this.books);
   }
 
   addBook(book: Book) {
@@ -39,23 +18,37 @@ export class LibraryService {
   }
 
   removeBook(book: Book) {
-    let index = this.indexOf(book);
-    this.books.splice(index, 1);
+    this.books = this.books.filter(item => item.id !== book.id);
     this.save();
   }
 
   hasBook(book: Book): boolean {
-    return this.indexOf(book) !== -1;
+    return this.books.some(item => item.id === book.id);
   }
 
-  indexOf(book: Book): number {
-    for (let i = 0; i < this.books.length; i++) {
-      if (this.books[i].id === book.id) {
-        return i
-      }
+  findIndex(book: Book): number {
+    return this.books.findIndex(item => item.id === book.id);
+  }
+
+  private save() {
+    localStorage.setItem('books', JSON.stringify(this.books));
+  }
+
+  private load() {
+    this.books = [];
+    let savedBooks = localStorage.getItem('books');
+    if (!savedBooks) {
+      return;
     }
-    return -1;
+    savedBooks = JSON.parse(savedBooks);
+    for (const savedBook of savedBooks) {
+      //noinspection TypeScriptValidateTypes,TypeScriptUnresolvedFunction
+      this.books.push(
+        Object.assign(
+          new Book(null, null, null, null, null, null, null, null, null, null),
+          savedBook
+        )
+      );
+    }
   }
-
-
 }

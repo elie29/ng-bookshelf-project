@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {GoogleBooksService} from "../shared/google-books.service";
-import {Book} from "../shared/book";
-import {Router, ActivatedRoute} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { GoogleBooksService } from '../shared/google-books.service';
+import { Book } from '../shared/book';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -9,9 +9,7 @@ import {Router, ActivatedRoute} from "@angular/router";
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
-  constructor() {
-  }
+  constructor() {}
 
   doSearch() {
     //TODO
@@ -21,7 +19,5 @@ export class SearchComponent implements OnInit {
     //TODO
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
