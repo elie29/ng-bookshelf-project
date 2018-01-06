@@ -70,8 +70,12 @@ export class GoogleBooksService {
               .trim()
           )
         : ['N/A'],
-      item.volumeInfo.imageLinks.thumbnail,
-      item.volumeInfo.imageLinks.smallThumbnail
+      item.volumeInfo.imageLinks
+        ? item.volumeInfo.imageLinks.thumbnail
+        : 'http://lorempixel.com/g/200/300/',
+      item.volumeInfo.imageLinks
+        ? item.volumeInfo.imageLinks.smallThumbnail
+        : 'http://lorempixel.com/g/200/300/'
     );
   }
 
