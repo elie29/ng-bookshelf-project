@@ -22,7 +22,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.search = new FormControl('', Validators.required);
-    // When we refresh using the searched value
     this.sub = this.route.params.subscribe(params => {
       this.onSearch(params['term']);
     });
@@ -33,7 +32,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   doSearch() {
-    const term = this.search.value;
+    const term = this.search.value.trim();
     // Change the url with an optional term using Matrix URL notation
     this.router.navigate(['search', { term }]);
   }
@@ -52,7 +51,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private onSearch(term: string) {
     this.search.setValue(term);
-    if (!term || this.service.query !== term) {
+    // If term has changed
+    if (this.service.query !== term) {
       this.service.searchBooks(term);
     }
   }
