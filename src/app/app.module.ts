@@ -27,7 +27,6 @@ import { LibraryService } from './shared/library.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
     BrowserModule,
     ReactiveFormsModule,

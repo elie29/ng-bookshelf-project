@@ -1,13 +1,13 @@
 <div>
   <div class="m-3 text-center">
-    <form class="form-inline" [formGroup]="form" (ngSubmit)="onSearch()">
+    <form class="form-inline" (ngSubmit)="doSearch()">
       <div class="form-group">
         <input type="search" class="form-control"
           placeholder="Enter search string" name="search"
-          formControlName="search"
+          [formControl]="search"
         />
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Search</button>
+      <button type="submit" class="btn btn-primary" [disabled]="search.invalid || service.loading">Search</button>
     </form>
     <hr />
 
