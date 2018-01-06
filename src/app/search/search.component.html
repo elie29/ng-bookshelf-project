@@ -1,30 +1,33 @@
 <div>
   <div class="m-3 text-center">
-    <form class="form-inline">
+    <form class="form-inline" [formGroup]="form" (ngSubmit)="doSearch()">
       <div class="form-group">
-        <input type="search" class="form-control" placeholder="Enter search string" name="search" required>
+        <input type="search" class="form-control"
+          placeholder="Enter search string" name="search"
+          formControlName="search"
+        />
       </div>
       <button type="submit" class="btn btn-primary">Search</button>
     </form>
     <hr />
 
     <div class="text-center">
-      <!-- TODO: Show when we are calling the API -->
-      <p class="lead">Loading...</p>
+      <!-- Show when we are calling the API -->
+      <p class="lead" *ngIf="service.loading">Loading...</p>
 
-      <!-- TODO: Show when no results are returned from the API -->
-      <p class="lead">No results returned</p>
+      <!-- Show when no results are returned from the API -->
+      <p class="lead" *ngIf="foundNoResult()">No results returned</p>
 
-      <!-- TODO: Show when the user hasn't performed a search yet -->
-      <p class="lead">Enter a search string above and press search</p>
+      <!-- Show when the user hasn't performed a search yet -->
+      <p class="lead" *ngIf="!service.initialised">Enter a search string above and press search</p>
     </div>
   </div>
 
-  <!-- TODO: Show the results of the search -->
-  <app-book-list></app-book-list>
+  <!-- Show the results of the search -->
+  <app-book-list *ngIf="foundResults()"></app-book-list>
 
   <div class="d-flex justify-content-center">
-    <!-- TODO: Show pagnation -->
-    <app-pager></app-pager>
+    <!-- Show pagnation -->
+    <app-pager *ngIf="service.books.length > service.pageSize"></app-pager>
   </div>
 </div>

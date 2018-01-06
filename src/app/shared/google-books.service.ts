@@ -13,7 +13,7 @@ export class GoogleBooksService {
   public _page = 1;
   public pageSize = 10;
   public query = '';
-  public books: Book[];
+  public books: Book[] = [];
 
   constructor(private http: HttpClient) {}
 
