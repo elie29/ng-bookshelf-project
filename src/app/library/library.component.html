@@ -4,6 +4,6 @@
     </h4>
   </div>
 
-  <!-- TODO: Pass into app-book-list the books from the library service -->
-  <app-book-list></app-book-list>
+  <!-- Pass into app-book-list the books from the library service -->
+  <app-book-list [books]="service.books" *ngIf="service.books"></app-book-list>
 </div>

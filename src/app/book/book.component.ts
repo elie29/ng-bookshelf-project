@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Book } from '../shared/book';
 import { GoogleBooksService } from '../shared/google-books.service';
+import { LibraryService } from '../shared/library.service';
 
 @Component({
   templateUrl: './book.component.html',
@@ -15,17 +16,20 @@ export class BookComponent implements OnInit, OnDestroy {
   public book: Book;
 
   private sub: Subscription;
+  private term: string;
 
   constructor(
     private route: ActivatedRoute,
-    private service: GoogleBooksService
+    private router: Router,
+    private service: GoogleBooksService,
+    private lib: LibraryService
   ) {}
 
   ngOnInit(): void {
     this.sub = this.route.params
       .pipe(
         map(params => params['id']),
-        switchMap(id => this.getBook(id)),
+        switchMap(id => this.service.retrieveBook(id)),
         map((item: any) => {
           const book = this.service.bookFactory(item);
           if (
@@ -45,20 +49,19 @@ export class BookComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  getBook(bookId: string) {
-    return this.service.retrieveBook(bookId);
+  hasBook(): boolean {
+    return this.lib.hasBook(this.book);
   }
 
-  hasBook(book: Book): boolean {
-    //TODO
-    return false;
+  addBook(): void {
+    this.lib.addBook(this.book);
   }
 
-  addBook(book: Book) {
-    //TODO
+  removeBook(): void {
+    this.lib.removeBook(this.book);
   }
 
-  removeBook(book: Book) {
-    //TODO
+  goBack(): void {
+    this.router.navigate(['/search']);
   }
 }

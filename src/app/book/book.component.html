@@ -35,15 +35,22 @@
     <p>
       <button type="button"
         class="btn btn-primary"
+        [disabled]="hasBook()"
         (click)="addBook()"
       >
       Add To Library
       </button>
       <button type="button"
-        class="btn btn-default"
+        class="btn btn-danger"
         [disabled]="!hasBook()"
         (click)="removeBook()"
       >Remove From Library
+      </button>
+      <button type="button"
+        class="btn btn-default"
+        (click)="goBack()"
+      >
+      Go Back to Search
       </button>
     </p>
 

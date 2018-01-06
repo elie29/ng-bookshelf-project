@@ -26,7 +26,7 @@
   </div>
 
   <!-- Show the results of the search -->
-  <app-book-list *ngIf="foundResults()"></app-book-list>
+  <app-book-list *ngIf="foundResults()" [books]="service.books"></app-book-list>
 
   <div class="d-flex justify-content-center">
     <!-- Show pagnation -->

@@ -40,19 +40,15 @@ export class GoogleBooksService {
   searchBooks(queryTitle: string) {
     this.query = queryTitle;
     this.books = [];
-    this.initialised = false;
-    if (this.query) {
-      this.loading = true;
-      this.initialised = true;
-      this.callApi();
-    }
+    this.initialised = true;
+    this.callApi();
   }
 
   retrieveBook(bookId: string) {
     return this.http.get(`${this.API_PATH}/${bookId}`);
   }
 
-  public bookFactory(item: any): Book {
+  bookFactory(item: any): Book {
     return new Book(
       item.id,
       item.volumeInfo.title,
@@ -79,6 +75,7 @@ export class GoogleBooksService {
   }
 
   private callApi(): void {
+    this.loading = true;
     this.http
       .get(this.API_PATH, this.getOptions())
       .pipe(
